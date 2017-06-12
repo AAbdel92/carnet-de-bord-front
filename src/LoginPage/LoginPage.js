@@ -51,7 +51,7 @@ class LoginPage extends Component {
             let user = {};
             user["email"] = self.state.email
             user["password"] = self.state.password
-            axios.post("api/users/logged", user)
+            axios.get("api/users/connected")
                 .then(function (response) {
                     if (response.data != null) {                    
                      self.props.getUser(true, response.data);
