@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Menu} from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import LinkItem from "../LinkItem/LinkItem.js";
 import axios from "axios";
 
@@ -7,15 +7,15 @@ class MyMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeItem : ""
+            activeItem: ""
         }
     }
-    componentWillMount() {      
-            this.setState({
-                linksCount : this.props.items.length
-            })
+    componentWillMount() {
+        this.setState({
+            linksCount: this.props.items.length
+        })
     }
-    
+
 
     handleItemClick = (e, { name }) => {
         this.setState({ activeItem: name })
@@ -25,9 +25,9 @@ class MyMenu extends Component {
         const self = this;
         this.handleItemClick(e, { name });
         axios.get("/logout")
-        .then(function (response) {
-            self.props.deleteUser();
-        })
+            .then(function (response) {
+                self.props.deleteUser();
+            })
     }
 
     render() {
@@ -38,22 +38,22 @@ class MyMenu extends Component {
         const activeItem = this.state.activeItem;
         return (
             <Menu as="menu" pointing color="red" widths={this.state.linksCount + 1}>
-                    {links.map(
-                        (link, index) => (
-                            <LinkItem key={index} link={link} activeItem={activeItem} handleClick={this.handleItemClick}/>
-                        )
-                    )}
-                                             
-                    {/*<Menu.Item as={Link} to={firstLinkTo} name='création' active={activeItem === 'création'} onClick={this.handleItemClick}>
+                {links.map(
+                    (link, index) => (
+                        <LinkItem key={index} link={link} activeItem={activeItem} handleClick={this.handleItemClick} />
+                    )
+                )}
+
+                {/*<Menu.Item as={Link} to={firstLinkTo} name='création' active={activeItem === 'création'} onClick={this.handleItemClick}>
                         {firstLinkName}
                     </Menu.Item>
                     <Menu.Item as={Link} to={secondLinkTo} name='gestion' active={activeItem === 'gestion'} onClick={this.handleItemClick}>
                         {secondLinkName}
                     </Menu.Item>*/}
-                    <Menu.Item position="right" name='logout' active={activeItem === 'logout'} onClick={this.loggingOut}>
-                        Se déconnecter
+                <Menu.Item position="right" name='logout' active={activeItem === 'logout'} onClick={this.loggingOut}>
+                    Se déconnecter
                     </Menu.Item>
-                </Menu>
+            </Menu>
         );
     }
 }

@@ -1,44 +1,47 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import {Container, Divider, Header, Grid, Select, Message} from "semantic-ui-react";
+import { Container, Divider, Header, Grid, Select, Message } from "semantic-ui-react";
 import ModalForReading from "../ReadingPage/ModalForReading/ModalForReading.js";
 import ModalForEditingConclusion from "./ModalForEditingConclusion/ModalForEditingConclusion.js";
 
-const defaultMessageForModal =    <Grid.Row>
-                                        <Grid.Column textAlign="center">
-                                            <Message info content="Aucune conclusion à rédiger pour cet apprenant" />
-                                        </Grid.Column>
-                                    </Grid.Row>
+const defaultMessageForModal = <Grid.Row>
+    <Grid.Column textAlign="center">
+        <Message info content="Aucune conclusion à rédiger pour cet apprenant" />
+    </Grid.Column>
+</Grid.Row>
 
-const defaultMessageForUsers =  <Grid.Row>
-                                    <Grid.Column  textAlign="center">
-                                        <Message info content="Aucune conclusion à rédiger pour ce carnet" />
-                                    </Grid.Column>
-                                </Grid.Row>
+const defaultMessageForUsers = <Grid.Row>
+    <Grid.Column textAlign="center">
+        <Message info content="Aucune conclusion à rédiger pour ce carnet" />
+    </Grid.Column>
+</Grid.Row>
 class ConclusionsEditingPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            diaries : [],
-            diaryReaded : {},
-            users : [],
-            userChoosen : {},
-            answers : [],
-            modal : null  
+            diaries: [],
+            diaryReaded: {},
+            users: [],
+            userChoosen: {},
+            answers: [],
+            modal: null
         }
     }
-    
 
     componentWillMount() {
-        this.getDiaries();
+        if (!this.props.loggedIn) {
+            this.props.redirect();
+        } else {
+            this.getDiaries();
+        }
     }
 
     getDiaries = () => {
         const self = this;
         const userRole = this.props.user.role.name;
         const promoId = this.props.user.promo.id;
-        axios.get(`/api/diaries?userRole=${userRole}&questions=true&promoId=${promoId}`)
+        axios.get(`/api/v1/diaries?read=false&userRole=${userRole}&questions=true&promoId=${promoId}`)
             .then((response) => {
                 self.setState({
                     diaries: response.data
@@ -51,22 +54,17 @@ class ConclusionsEditingPage extends Component {
         const role = this.props.user.role.name;
         const promoId = this.props.user.promo.id;
         const diaryId = diary.id;
-        axios.get("/api/users?promoId="
-        + promoId
-        + "&diaryId="
-        + diaryId
-        + "&userRole="
-        + role)
-        .then((response) => {
-            self.setState({
-                users : response.data,
-                diaryReaded : diary,
-                modal : null
+        axios.get(`/api/v1/users?promoId=${promoId}&diaryId=${diaryId}&userRole=${role}`)
+            .then((response) => {
+                self.setState({
+                    users: response.data,
+                    diaryReaded: diary,
+                    modal: null
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
     getDiary = (user) => {
@@ -74,18 +72,15 @@ class ConclusionsEditingPage extends Component {
         const promoId = this.props.user.promo.id;
         const diaryId = this.state.diaryReaded.id;
         const userId = user.id
-        axios.get("/api/answers?diaryId="
-                    + diaryId
-                    + "&studentId="
-                    + userId)
-        .then( (response) => {           
-            self.setState({
-                answers : response.data,
-                userChoosen : user
-            }, () => {
-                this.showModal();
+        axios.get(`/api/v1/answers?diaryId=${diaryId}&studentId=${userId}`)
+            .then((response) => {
+                self.setState({
+                    answers: response.data,
+                    userChoosen: user
+                }, () => {
+                    this.showModal();
+                })
             })
-        })
     }
 
     setDiariesSelect = () => {
@@ -93,7 +88,7 @@ class ConclusionsEditingPage extends Component {
         let options = []
         this.state.diaries.map(
             diary => (
-                options.push({key : diary.id, text: diary.name, value: diary.id})
+                options.push({ key: diary.id, text: diary.name, value: diary.id })
             )
         )
 
@@ -106,12 +101,12 @@ class ConclusionsEditingPage extends Component {
     }
 
     setUsersSelect = () => {
-        let content = defaultMessageForUsers;             
+        let content = defaultMessageForUsers;
         if (this.state.users.length > 0) {
-             let options = [];        
+            let options = [];
             this.state.users.map(
                 user => {
-                    options.push({key : user.id, text:user.firstname + " " + user.lastname, value: user.id})
+                    options.push({ key: user.id, text: user.firstname + " " + user.lastname, value: user.id })
                 }
             )
             content = <Grid.Row>
@@ -121,7 +116,7 @@ class ConclusionsEditingPage extends Component {
                         options={options}
                         onChange={this.handleUsersChange}
                     />
-             </Grid.Column></Grid.Row>
+                </Grid.Column></Grid.Row>
         }
         return content;
 
@@ -131,19 +126,19 @@ class ConclusionsEditingPage extends Component {
         let content = defaultMessageForModal;
         if (this.state.answers.length > 0) {
             content = <Grid.Row>
-                        <Grid.Column textAlign="centered">
-                            <ModalForEditingConclusion
+                <Grid.Column textAlign="centered">
+                    <ModalForEditingConclusion
                         diary={this.state.diaryReaded}
                         answers={this.state.answers}
                     />
-                        </Grid.Column>
-                    </Grid.Row>;
+                </Grid.Column>
+            </Grid.Row>;
         }
-        
-                    console.log("set state de showModal")
-                    this.setState({
-                        modal : content
-                    })
+
+        console.log("set state de showModal")
+        this.setState({
+            modal: content
+        })
     }
 
     handleDiariesChange = (event, select) => {
@@ -182,9 +177,9 @@ class ConclusionsEditingPage extends Component {
                         <Grid.Column textAlign="centered">
                             {this.setDiariesSelect()}
                         </Grid.Column>
-                    </Grid.Row>  
-                        {this.setUsersSelect()}
-                        {this.state.modal}
+                    </Grid.Row>
+                    {this.setUsersSelect()}
+                    {this.state.modal}
                 </Grid>
             </Container>
         );

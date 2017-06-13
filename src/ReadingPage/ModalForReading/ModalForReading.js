@@ -1,44 +1,46 @@
 import React, { Component } from 'react';
-import {Modal, Card, Popup, Label, Header, Divider, Select} from "semantic-ui-react";
+import { Modal, Card, Popup, Label, Header, Divider, Select } from "semantic-ui-react";
 
 class ModalForReading extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            conclusionToShow : ""
+            conclusionToShow: ""
         }
     }
-    
+
 
     setConclusionsByRole = (diary) => {
         if (this.props.role === "formateur") {
             let options = [];
             diary.conclusions.map(
                 (conclusion, index) => (
-                    options.push({key:conclusion.user.id,
-                        text:conclusion.user.firstname,
-                        value:conclusion.user.firstname})                        
+                    options.push({
+                        key: conclusion.user.id,
+                        text: conclusion.user.firstname,
+                        value: conclusion.user.firstname
+                    })
                 )
             )
-            let content =   <Modal.Description>
-                                <Header>Conclusion</Header>
-                                <Select
-                                    placeholder='Selectionner un apprenant'
-                                    options={options}
-                                    onChange={this.handleChange}
-                                />
-                                <Divider hidden />
-                                {this.state.conclusionToShow}
-                            </Modal.Description>
-            return  content;
-        } else {           
-            let content =   <Modal.Description>
-                                <Header>Conclusion</Header>
-                                {diary.conclusions[0].content}
-                            </Modal.Description>
+            let content = <Modal.Description>
+                <Header>Conclusion</Header>
+                <Select
+                    placeholder='Selectionner un apprenant'
+                    options={options}
+                    onChange={this.handleChange}
+                />
+                <Divider hidden />
+                {this.state.conclusionToShow}
+            </Modal.Description>
+            return content;
+        } else {
+            let content = <Modal.Description>
+                <Header>Conclusion</Header>
+                {diary.conclusions[0].content}
+            </Modal.Description>
 
-            return content; 
+            return content;
         }
     }
 
@@ -47,12 +49,12 @@ class ModalForReading extends Component {
             conclusion => {
                 if (select.value === conclusion.user.firstname) {
                     this.setState({
-                        conclusionToShow : conclusion.content
+                        conclusionToShow: conclusion.content
                     })
                 }
             }
         )
-        
+
     }
 
     render() {
@@ -81,7 +83,7 @@ class ModalForReading extends Component {
                         <Header>Introduction</Header>
                         {diary.introduction}
                     </Modal.Description>
-                    <Divider section />                    
+                    <Divider section />
                     {this.setConclusionsByRole(diary)}
                 </Modal.Content>
             </Modal>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Header, Divider, Card, Label, Grid, Modal, Popup} from "semantic-ui-react";
+import { Container, Header, Divider, Card, Label, Grid, Modal, Popup } from "semantic-ui-react";
 import ModalForReading from "./ModalForReading/ModalForReading.js"
 import axios from "axios";
 
@@ -8,23 +8,22 @@ class ReadingPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            diaries : []
+            diaries: []
         }
     }
-    
 
     componentWillMount() {
         if (!this.props.loggedIn) {
-           this.props.redirect();
+            this.props.redirect();
         } else {
             const self = this;
             const promoId = this.props.promoId();
             const studentId = this.props.studentId();
             const role = this.props.user.role.name;
-            axios.get(`/api/diaries?consulter=true&promoId=${promoId}&studentId=${studentId}&userRole=${role}`)                       
+            axios.get(`/api/v1/diaries?read=true&promoId=${promoId}&studentId=${studentId}&userRole=${role}`)
                 .then(function (response) {
                     self.setState({
-                        diaries : response.data
+                        diaries: response.data
                     })
                 })
                 .catch(function (err) {
@@ -34,7 +33,7 @@ class ReadingPage extends Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     render() {

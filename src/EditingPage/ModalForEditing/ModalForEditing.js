@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Modal, Card, Label, Divider, Grid, Header, Button} from "semantic-ui-react";
+import { Modal, Card, Label, Divider, Grid, Header, Button } from "semantic-ui-react";
 import QuestionRow from "./QuestionRow/QuestionRow.js";
 import axios from "axios";
 
@@ -7,70 +7,70 @@ class ModalForEditing extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {           
-            answer1 : "",
-            answer2 : "",
-            answer3 : "",
-            answer4 : "",
-            answer5 : ""
+        this.state = {
+            answer1: "",
+            answer2: "",
+            answer3: "",
+            answer4: "",
+            answer5: ""
         }
     }
 
     getAnswer = (answer, input) => {
         if (input === 1) {
             this.setState({
-                answer1 : answer
+                answer1: answer
             })
         } else if (input === 2) {
             this.setState({
-                answer2 : answer
+                answer2: answer
             })
         } else if (input === 3) {
             this.setState({
-                answer3 : answer
+                answer3: answer
             })
         } else if (input === 4) {
             this.setState({
-                answer4 : answer
+                answer4: answer
             })
         } else if (input === 5) {
             this.setState({
-                answer5 : answer
+                answer5: answer
             })
         }
-        
+
     }
 
     fillAnswers = (anArray) => {
         let result = []
         for (let i = 0; i < 5; i++) {
             let answer = {
-                content : anArray[i],
-                question : {
-                    id : this.props.diary.questions[i].id
+                content: anArray[i],
+                question: {
+                    id: this.props.diary.questions[i].id
                 },
-                user : {
-                    id : this.props.user.id                    
+                user: {
+                    id: this.props.user.id
                 }
             };
             result.push(answer);
-            
+
         }
         return result;
     }
-    
+
 
     sendAnswers = () => {
-        const self = this;        
+        const self = this;
         let answers = [];
         answers.push(this.state.answer1, this.state.answer2, this.state.answer3, this.state.answer4, this.state.answer5);
-        axios.post("/api/answers", this.fillAnswers(answers))
-        .then( (response) => {
-            self.props.update(true), () => {
-                this.close();
-            }
-        })
-    }   
+        axios.post("/api/v1/answers", this.fillAnswers(answers))
+            .then((response) => {
+                self.props.update(true), () => {
+                    this.close();
+                }
+            })
+    }
 
     render() {
         const diary = this.props.diary;

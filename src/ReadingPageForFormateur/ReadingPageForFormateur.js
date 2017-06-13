@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Container, Divider, Header} from "semantic-ui-react";
+import { Container, Divider, Header } from "semantic-ui-react";
 
 class ReadingPageForFormateur extends Component {
     render() {
