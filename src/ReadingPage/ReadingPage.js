@@ -21,12 +21,7 @@ class ReadingPage extends Component {
             const promoId = this.props.promoId();
             const studentId = this.props.studentId();
             const role = this.props.user.role.name;
-            axios.get("/api/diaries?consulter=true&promoId=" 
-                        + promoId
-                        + "&studentId="
-                        + studentId
-                        + "&userRole="
-                        + role)
+            axios.get(`/api/diaries?consulter=true&promoId=${promoId}&studentId=${studentId}&userRole=${role}`)                       
                 .then(function (response) {
                     self.setState({
                         diaries : response.data
