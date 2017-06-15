@@ -126,7 +126,7 @@ class ConclusionsEditingPage extends Component {
         let content = defaultMessageForModal;
         if (this.state.answers.length > 0) {
             content = <Grid.Row>
-                <Grid.Column textAlign="centered">
+                <Grid.Column>
                     <ModalForEditingConclusion
                         diary={this.state.diaryReaded}
                         answers={this.state.answers}

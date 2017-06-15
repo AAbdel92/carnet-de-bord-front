@@ -12,6 +12,7 @@ class ModalForReading extends Component {
 
 
     setConclusionsByRole = (diary) => {
+        let content;
         if (this.props.role === "formateur") {
             let options = [];
             diary.conclusions.map(
@@ -23,7 +24,7 @@ class ModalForReading extends Component {
                     })
                 )
             )
-            let content = <Modal.Description>
+            content = <Modal.Description>
                 <Header>Conclusion</Header>
                 <Select
                     placeholder='Selectionner un apprenant'
@@ -33,15 +34,13 @@ class ModalForReading extends Component {
                 <Divider hidden />
                 {this.state.conclusionToShow}
             </Modal.Description>
-            return content;
         } else {
-            let content = <Modal.Description>
+            content = <Modal.Description>
                 <Header>Conclusion</Header>
                 {diary.conclusions[0].content}
             </Modal.Description>
-
-            return content;
         }
+        return content;
     }
 
     handleChange = (event, select) => {
@@ -64,16 +63,13 @@ class ModalForReading extends Component {
             <Modal closeIcon dimmer="blurring" trigger={
 
                 <Card as="article" color="red">
-                    <Popup trigger={
+                    
                         <Card.Content>
                             <Label color='red' ribbon>{diary.name}</Label>
                             <Card.Meta>
                                 Du {new Date(diary.startDate).toLocaleDateString()} au {new Date(diary.endDate).toLocaleDateString()}
                             </Card.Meta>
                         </Card.Content>
-                    }
-                        content="blabla"
-                    />
                 </Card>
             }>
 

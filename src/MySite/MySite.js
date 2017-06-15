@@ -87,7 +87,11 @@ class MySite extends Component {
 
 
     componentDidUpdate() {
-        this.props.loggedIn ? (history.push('/app/' + this.checkRoleForRouting())) : (history.push('/welcome'));
+        this.props.loggedIn ? (
+            history.push('/app/' + this.checkRoleForRouting())
+            ) : (
+                history.push('/welcome')
+                );
     }
 
 
