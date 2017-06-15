@@ -102,7 +102,7 @@ class MySite extends Component {
                 <div>
                     <Route path="/" render={this.myHeader} />
                     <Route exact path="/welcome" render={this.loginPage} />
-                    <Route strict path="/app/" render={this.myNav} />
+                    <Route path="/app/" render={this.myNav} />
                     <Route path="/app/administrateur" render={this.adminPage} />
                     <Route exact path="/app/administrateur/création" render={this.entitiesPage} />
                     <Route exact path="/app/administrateur/gestion" render={this.promoManagementPage} />
