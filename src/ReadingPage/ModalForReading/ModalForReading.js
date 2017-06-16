@@ -59,17 +59,19 @@ class ModalForReading extends Component {
     render() {
 
         const diary = this.props.diary;
+        const startDate = new Date(diary.startDate).toLocaleDateString();
+        const endDate = new Date(diary.endDate).toLocaleDateString();
         return (
             <Modal closeIcon dimmer="blurring" trigger={
 
                 <Card as="article" color="red">
-                    
-                        <Card.Content>
-                            <Label color='red' ribbon>{diary.name}</Label>
-                            <Card.Meta>
-                                Du {new Date(diary.startDate).toLocaleDateString()} au {new Date(diary.endDate).toLocaleDateString()}
-                            </Card.Meta>
-                        </Card.Content>
+
+                    <Card.Content>
+                        <Label color='red' ribbon>{diary.name}</Label>
+                        <Card.Meta>
+                            Du {startDate} au {endDate}
+                        </Card.Meta>
+                    </Card.Content>
                 </Card>
             }>
 

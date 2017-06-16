@@ -66,9 +66,10 @@ class ModalForEditing extends Component {
         answers.push(this.state.answer1, this.state.answer2, this.state.answer3, this.state.answer4, this.state.answer5);
         axios.post("/api/v1/answers", this.fillAnswers(answers))
             .then((response) => {
-                self.props.update(true), () => {
-                    this.close();
-                }
+                self.props.update(true)
+            })
+            .catch( (error) => {
+                console.log(error)
             })
     }
 
@@ -88,7 +89,7 @@ class ModalForEditing extends Component {
             }>
                 <Label id="diary" tag size="big" color='red'>{diary.name}</Label>
                 <Modal.Content>
-                    <Modal.Description>
+                    <Modal.Description >
                         <Header>Introduction</Header>
                         {diary.introduction}
                     </Modal.Description>

@@ -25,7 +25,8 @@ class ConclusionsEditingPage extends Component {
             users: [],
             userChoosen: {},
             answers: [],
-            modal: null
+            modal: null,
+            update : false
         }
     }
 
@@ -34,6 +35,12 @@ class ConclusionsEditingPage extends Component {
             this.props.redirect();
         } else {
             this.getDiaries();
+        }
+    }
+
+    componentWillUpdate() {
+        if (!this.props.loggedIn) {
+            this.props.redirect();
         }
     }
 
@@ -110,7 +117,7 @@ class ConclusionsEditingPage extends Component {
                 }
             )
             content = <Grid.Row>
-                <Grid.Column textAlign="centered">
+                <Grid.Column textAlign="center">
                     <Select
                         placeholder="Veuillez choisir un apprenant"
                         options={options}
@@ -130,6 +137,8 @@ class ConclusionsEditingPage extends Component {
                     <ModalForEditingConclusion
                         diary={this.state.diaryReaded}
                         answers={this.state.answers}
+                        user={this.state.userChoosen}
+                        update={this.update}
                     />
                 </Grid.Column>
             </Grid.Row>;
@@ -163,6 +172,12 @@ class ConclusionsEditingPage extends Component {
         )
     }
 
+    update = (newUpdate) => {
+        this.setState({
+            update: newUpdate
+        })
+    }
+
     render() {
         console.log(this.state.modal)
         return (
@@ -174,7 +189,7 @@ class ConclusionsEditingPage extends Component {
                 <Divider className="test" section />
                 <Grid doubling centered divided="vertically">
                     <Grid.Row>
-                        <Grid.Column textAlign="centered">
+                        <Grid.Column textAlign="center">
                             {this.setDiariesSelect()}
                         </Grid.Column>
                     </Grid.Row>
