@@ -31,9 +31,7 @@ class ModalForEditingConclusion extends Component {
         };
         axios.post("/api/v1/conclusions", conclusion)
             .then((response) => {
-                self.props.update(true), () => {
-                    console.log("axios")
-                }
+                self.props.update(true);
             })
             .catch((error) => {
                 console.log(error);
@@ -46,27 +44,27 @@ class ModalForEditingConclusion extends Component {
         })
     }
 
-    open = () => {
-        this.setState({
-            open: true
-        }), () => {
-            console.log("open()")
-        }
-    }
+    // open = () => {
+    //     this.setState({
+    //         open: true
+    //     }), () => {
+    //         console.log("open()")
+    //     }
+    // }
 
-    close = () => {
-        this.setState({
-            open: false
-        }), () => {
-            console.log("close()")
-        }
-    }
+    // close = () => {
+    //     this.setState({
+    //         open: false
+    //     }), () => {
+    //         console.log("close()")
+    //     }
+    // }
 
     render() {
         const diary = this.props.diary;
         const answers = this.props.answers;
         return (
-            <Modal closeIcon
+            <Modal
                 dimmer="blurring"
                 trigger={
 
@@ -79,9 +77,6 @@ class ModalForEditingConclusion extends Component {
                         </Card.Content>
                     </Card>
                 }
-                open={this.state.open}
-                onOpen={this.open}
-                onClose={this.close}
             >
 
                 <Label tag size="big" color='red'>{diary.name}</Label>

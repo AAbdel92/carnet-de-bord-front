@@ -43,6 +43,12 @@ class ConclusionsEditingPage extends Component {
             this.props.redirect();
         }
     }
+    
+    componentDidUpdate() {
+        if (this.state.update) {
+            this.getUsers(this.state.diaryReaded);
+        }
+    }
 
     getDiaries = () => {
         const self = this;
@@ -51,7 +57,8 @@ class ConclusionsEditingPage extends Component {
         axios.get(`/api/v1/diaries?read=false&userRole=${userRole}&questions=true&promoId=${promoId}`)
             .then((response) => {
                 self.setState({
-                    diaries: response.data
+                    diaries: response.data,
+                    update : false
                 })
             })
     }
@@ -66,7 +73,8 @@ class ConclusionsEditingPage extends Component {
                 self.setState({
                     users: response.data,
                     diaryReaded: diary,
-                    modal: null
+                    modal: null,
+                    update : false
                 })
             })
             .catch((error) => {
@@ -174,7 +182,7 @@ class ConclusionsEditingPage extends Component {
 
     update = (newUpdate) => {
         this.setState({
-            update: newUpdate
+            update : newUpdate
         })
     }
 

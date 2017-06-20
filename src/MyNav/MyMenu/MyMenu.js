@@ -37,19 +37,12 @@ class MyMenu extends Component {
         console.log(Math.floor(16 / (this.state.linksCount + 1)))
         const activeItem = this.state.activeItem;
         return (
-            <Menu as="menu" pointing color="red" widths={this.state.linksCount + 1}>
+            <Menu stackable as="menu" pointing color="red" widths={this.state.linksCount + 1}>
                 {links.map(
                     (link, index) => (
                         <LinkItem key={index} link={link} activeItem={activeItem} handleClick={this.handleItemClick} />
                     )
                 )}
-
-                {/*<Menu.Item as={Link} to={firstLinkTo} name='création' active={activeItem === 'création'} onClick={this.handleItemClick}>
-                        {firstLinkName}
-                    </Menu.Item>
-                    <Menu.Item as={Link} to={secondLinkTo} name='gestion' active={activeItem === 'gestion'} onClick={this.handleItemClick}>
-                        {secondLinkName}
-                    </Menu.Item>*/}
                 <Menu.Item position="right" name='logout' active={activeItem === 'logout'} onClick={this.loggingOut}>
                     Se déconnecter
                     </Menu.Item>
