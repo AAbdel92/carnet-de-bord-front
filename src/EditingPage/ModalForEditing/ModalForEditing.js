@@ -50,7 +50,7 @@ class ModalForEditing extends Component {
                     id: this.props.diary.questions[i].id
                 },
                 user: {
-                    id: this.props.user.id
+                    id: this.props.studentId
                 }
             };
             result.push(answer);
@@ -77,7 +77,7 @@ class ModalForEditing extends Component {
         const diary = this.props.diary;
         let inputId = 0;
         return (
-            <Modal dimmer="blurring" key={diary.id} trigger={
+            <Modal closeIcon dimmer="blurring" key={diary.id} trigger={
                 <Card as="article" color="red">
                     <Card.Content>
                         <Label color='red' ribbon>{diary.name}</Label>

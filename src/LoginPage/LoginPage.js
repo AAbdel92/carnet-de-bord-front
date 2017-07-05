@@ -59,7 +59,7 @@ class LoginPage extends Component {
             password = this.state.password;
 
         return (
-            <div>
+            
                 <Container as="main" textAlign="center">
                     <Divider section />
                     <Header textAlign='center' as="h1">
@@ -113,7 +113,7 @@ class LoginPage extends Component {
                             </p>
                     </Message>
                 </Container>
-            </div>
+            
         );
     }
 }

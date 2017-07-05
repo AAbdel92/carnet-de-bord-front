@@ -65,6 +65,7 @@ class ModalForEditingConclusion extends Component {
         const answers = this.props.answers;
         return (
             <Modal
+                closeIcon
                 dimmer="blurring"
                 trigger={
 

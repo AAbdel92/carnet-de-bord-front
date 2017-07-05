@@ -39,7 +39,7 @@ class EditingPage extends Component {
                     content = self.state.diaries.map(
                         diary => (
                             <Grid.Column key={diary.id}>
-                                <ModalForEditing update={self.update} user={self.props.user} diary={diary} />
+                                <ModalForEditing update={self.update} studentId={studentId} diary={diary} />
                             </Grid.Column>
                         )
                     )
