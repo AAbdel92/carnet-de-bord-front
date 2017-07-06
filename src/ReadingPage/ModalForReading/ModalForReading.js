@@ -64,7 +64,7 @@ class ModalForReading extends Component {
         return (
             <Modal closeIcon dimmer="blurring" trigger={
 
-                <Card as="article" color="red">
+                <Card  className="clickable" as="article" color="red">
 
                     <Card.Content>
                         <Label color='red' ribbon>{diary.name}</Label>

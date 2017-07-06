@@ -44,7 +44,7 @@ class MyMenu extends Component {
                     )
                 )}
                 <Menu.Item position="right" name='logout' active={activeItem === 'logout'} onClick={this.loggingOut}>
-                    Se déconnecter
+                    Déconnexion
                     </Menu.Item>
             </Menu>
         );

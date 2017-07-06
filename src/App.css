@@ -38,3 +38,7 @@ body {
 textarea {
   width : 80%;
 }
+
+.clickable {
+  cursor: pointer !important; 
+}

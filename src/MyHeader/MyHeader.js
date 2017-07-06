@@ -19,7 +19,15 @@ class MyHeader extends Component {
             <Container as="header">
                 <Grid divided='vertically'>
                     <Grid.Row columns={2}>
-                        <Grid.Column floated='left' width={3} only="computer">
+                        <Grid.Column floated='left'>
+                            <Image
+                                src={image}
+                                floated="left"
+                                size="medium"
+                                verticalAlign="middle"
+                            />
+                        </Grid.Column>
+                        <Grid.Column floated='right' width={3} only="computer">
                             {loggedIn &&
                                 <Card as="aside" raised color="red">
                                     <Card.Content>
@@ -30,14 +38,7 @@ class MyHeader extends Component {
                                     </Card.Content>
                                 </Card>
                             }
-                        </Grid.Column>
-                        <Grid.Column floated='right'>
-                            <Image
-                                src={image}
-                                floated="right"
-                                size="medium"
-                                verticalAlign="middle"
-                            />
+                            
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
