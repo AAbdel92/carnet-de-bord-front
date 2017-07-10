@@ -4,17 +4,12 @@ import { Container, Divider, Header, Grid, Select, Message } from "semantic-ui-r
 import ModalForReading from "../ReadingPage/ModalForReading/ModalForReading.js";
 import ModalForEditingConclusion from "./ModalForEditingConclusion/ModalForEditingConclusion.js";
 
-const defaultMessageForModal = <Grid.Row>
-    <Grid.Column textAlign="center">
-        <Message info content="Aucune conclusion à rédiger pour cet apprenant" />
-    </Grid.Column>
-</Grid.Row>
+const defaultMessageForModal = 
+        <Message info content="Aucune conclusion à rédiger pour cet apprenant" />;
 
-const defaultMessageForUsers = <Grid.Row>
-    <Grid.Column textAlign="center">
-        <Message info content="Aucune conclusion à rédiger pour ce carnet" />
-    </Grid.Column>
-</Grid.Row>
+const defaultMessageForUsers = 
+        <Message info content="Aucune conclusion à rédiger pour ce carnet" />;
+   
 class ConclusionsEditingPage extends Component {
 
     constructor(props) {
@@ -124,14 +119,13 @@ class ConclusionsEditingPage extends Component {
                     options.push({ key: user.id, text: user.firstname + " " + user.lastname, value: user.id })
                 }
             )
-            content = <Grid.Row>
-                <Grid.Column textAlign="center">
+            content = 
                     <Select
+
                         placeholder="Veuillez choisir un apprenant"
                         options={options}
                         onChange={this.handleUsersChange}
                     />
-                </Grid.Column></Grid.Row>
         }
         return content;
 
@@ -195,13 +189,15 @@ class ConclusionsEditingPage extends Component {
                     Finalisation des carnets de bord
                 </Header>
                 <Divider className="test" section />
-                <Grid doubling centered divided="vertically">
-                    <Grid.Row>
-                        <Grid.Column textAlign="center">
-                            {this.setDiariesSelect()}
-                        </Grid.Column>
-                    </Grid.Row>
-                    {this.setUsersSelect()}
+                <Container textAlign="center">
+                {this.setDiariesSelect()}
+                </Container>
+                <Divider className="test" section />
+                <Container textAlign="center">
+                {this.setUsersSelect()}
+                </Container>
+                <Divider section />
+                <Grid doubling centered columns={3} divided="vertically">
                     {this.state.modal}
                 </Grid>
             </Container>

@@ -17,10 +17,7 @@ class IndexPage extends Component {
                     <Divider section />                    
                     <Header textAlign='center' as="h1">
                         Bienvenue {firstname} !
-                    </Header>
-                    <p>
-                        Ya une barre de navigation en haut, donc appuie sur les boutons et tu verras bien ce qu'il se passe
-                    </p>                
+                    </Header>                                    
                 </Container>
             
         );
