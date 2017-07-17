@@ -4,12 +4,12 @@ import { Container, Divider, Header, Grid, Select, Message } from "semantic-ui-r
 import ModalForReading from "../ReadingPage/ModalForReading/ModalForReading.js";
 import ModalForEditingConclusion from "./ModalForEditingConclusion/ModalForEditingConclusion.js";
 
-const defaultMessageForModal = 
-        <Message info content="Aucune conclusion à rédiger pour cet apprenant" />;
+const defaultMessageForModal =
+    <Message info content="Aucune conclusion à rédiger pour le moment" />;
 
-const defaultMessageForUsers = 
-        <Message info content="Aucune conclusion à rédiger pour ce carnet" />;
-   
+const defaultMessageForUsers =
+    <Message info content="Aucune conclusion à rédiger pour ce carnet" />;
+
 class ConclusionsEditingPage extends Component {
 
     constructor(props) {
@@ -21,7 +21,7 @@ class ConclusionsEditingPage extends Component {
             userChoosen: {},
             answers: [],
             modal: null,
-            update : false
+            update: false
         }
     }
 
@@ -38,7 +38,7 @@ class ConclusionsEditingPage extends Component {
             this.props.redirect();
         }
     }
-    
+
     componentDidUpdate() {
         if (this.state.update) {
             this.getUsers(this.state.diaryReaded);
@@ -53,7 +53,7 @@ class ConclusionsEditingPage extends Component {
             .then((response) => {
                 self.setState({
                     diaries: response.data,
-                    update : false
+                    update: false
                 })
             })
     }
@@ -69,7 +69,7 @@ class ConclusionsEditingPage extends Component {
                     users: response.data,
                     diaryReaded: diary,
                     modal: null,
-                    update : false
+                    update: false
                 })
             })
             .catch((error) => {
@@ -111,7 +111,7 @@ class ConclusionsEditingPage extends Component {
     }
 
     setUsersSelect = () => {
-        let content = defaultMessageForUsers;
+        let content = defaultMessageForModal;
         if (this.state.users.length > 0) {
             let options = [];
             this.state.users.map(
@@ -119,31 +119,37 @@ class ConclusionsEditingPage extends Component {
                     options.push({ key: user.id, text: user.firstname + " " + user.lastname, value: user.id })
                 }
             )
-            content = 
-                    <Select
+            content =
+                <Select
 
-                        placeholder="Veuillez choisir un apprenant"
-                        options={options}
-                        onChange={this.handleUsersChange}
-                    />
+                    placeholder="Veuillez choisir un apprenant"
+                    options={options}
+                    onChange={this.handleUsersChange}
+                />
         }
         return content;
 
     }
 
     showModal = () => {
-        let content = defaultMessageForModal;
+        let content =
+            <Container textAlign="center">
+                {defaultMessageForModal}
+        </Container>
         if (this.state.answers.length > 0) {
-            content = <Grid.Row>
-                <Grid.Column>
-                    <ModalForEditingConclusion
-                        diary={this.state.diaryReaded}
-                        answers={this.state.answers}
-                        user={this.state.userChoosen}
-                        update={this.update}
-                    />
-                </Grid.Column>
-            </Grid.Row>;
+            content =
+                <Grid doubling centered columns={3} divided="vertically">
+                    <Grid.Row>
+                        <Grid.Column>
+                            <ModalForEditingConclusion
+                                diary={this.state.diaryReaded}
+                                answers={this.state.answers}
+                                user={this.state.userChoosen}
+                                update={this.update}
+                            />
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
         }
 
         console.log("set state de showModal")
@@ -176,7 +182,7 @@ class ConclusionsEditingPage extends Component {
 
     update = (newUpdate) => {
         this.setState({
-            update : newUpdate
+            update: newUpdate
         })
     }
 
@@ -190,16 +196,14 @@ class ConclusionsEditingPage extends Component {
                 </Header>
                 <Divider className="test" section />
                 <Container textAlign="center">
-                {this.setDiariesSelect()}
+                    {this.setDiariesSelect()}
                 </Container>
                 <Divider className="test" section />
                 <Container textAlign="center">
-                {this.setUsersSelect()}
+                    {this.setUsersSelect()}
                 </Container>
                 <Divider section />
-                <Grid doubling centered columns={3} divided="vertically">
-                    {this.state.modal}
-                </Grid>
+                {this.state.modal}
             </Container>
         );
     }
