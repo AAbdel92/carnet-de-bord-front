@@ -84,8 +84,18 @@ class ConclusionsEditingPage extends Component {
         const userId = user.id
         axios.get(`/api/v1/answers?diaryId=${diaryId}&studentId=${userId}`)
             .then((response) => {
+               let tutorAnswers = [];
+               let studentAnswers = [];               
+                for (var index = 0; index < response.data.length; index++) {
+                    if (index < 5) {
+                        tutorAnswers.push(response.data[index]);
+                    } else {
+                        studentAnswers.push(response.data[index]);
+                    }
+                }
+                let finalAnswers = studentAnswers.concat(tutorAnswers);
                 self.setState({
-                    answers: response.data,
+                    answers: finalAnswers,
                     userChoosen: user
                 }, () => {
                     this.showModal();
